@@ -19,7 +19,7 @@ $(document).ready(function() {
                 temp = getResult();
             } else {
                 var b = getResult();
-                var r = operations[data](temp, b);
+                var r = operations[currentOperation](temp, b);
                 currentOperation = '';
                 temp = 0;
                 setResult(r);
