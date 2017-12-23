@@ -1,0 +1,23 @@
+{
+  "name": "pentwi01",
+  "version": "0.1.0",
+  "description": "Create HTML5 Apps with JQuery Jump Start",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/jasmine-node/bin/jasmine-node spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stk-pablo-gonzalez/PENTWI01.git"
+  },
+  "author": "Pablo Gonzalez (PAGR)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stk-pablo-gonzalez/PENTWI01/issues"
+  },
+  "homepage": "https://github.com/stk-pablo-gonzalez/PENTWI01#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "jasmine-node": "^1.14.5"
+  }
+}
