@@ -1,50 +1,104 @@
+var ns = {};
+
+class Stack {
+    constructor() {
+        this._array = [];
+    }
+
+    push(value) {
+        this._array.push(value);
+    }
+
+    pop() {
+        return this._array.pop();
+    }
+
+    clear() {
+        this._array = [];
+    }
+
+    get count() {
+        return this._array.length;
+    }
+}
+
 $(document).ready(function() {
-    var temp = 0;
-    var currentOperation = '';
+    var rpnStack = new Stack();
+    var opStack = new Stack();
+    var canAppend = true;
 
     $("button").click(function() {
-        var data = $(this).attr("data-value");
-        console.log("clicked: " + data);
+        var key = $(this).attr("data-value");
+        console.log("clicked: " + key);
+        handleKey(key);
+    });
 
-        if(data == "clear") {
-            temp = 0;
-            setResult(0);
-        } else if(isDigit(data)) {
-            if(currentOperation !== '')
-                setResult(0);
-            appendDigitToResult(data);
+    function handleKey(key) {
+        if(isDigit(key)) {
+            appendDisplay(key);
+        } else if(isClear(key)) {
+            reset();
         } else {
-            if(currentOperation === '') {
-                currentOperation = data;
-                temp = getResult();
+            canAppend = false;
+            
+            var operand = getDisplay();
+            rpnStack.push(operand);
+            
+            if(rpnStack.count == 1) {
+                opStack.push(key);
             } else {
-                var b = getResult();
-                var r = operations[currentOperation](temp, b);
-                currentOperation = '';
-                temp = 0;
-                setResult(r);
+                var operator = opStack.pop();
+                var result = NaN;
+
+                if(operator === "equal") {
+                    result = rpnStack.pop();
+                } else {
+                    var a = rpnStack.pop();
+                    var b = rpnStack.pop();
+                    result = operations[operator](a, b);
+                    rpnStack.push(result);
+                    opStack.push(key);
+                }
+                setDisplay(result);
             }
         }
-    });
+    }
 
     function isDigit(data) {
         var pattern = /[0-9]/i;
         return pattern.test(data);
     }
 
-    function setResult(value) {
-        $("#txtResult").val(value);
+    function isClear(key) {
+        return key === "clear";
     }
 
-    function getResult() {
-        return $("#txtResult").val();
+    function setDisplay(value) {
+        $("#txtDisplay").val(value);
     }
 
-    function appendDigitToResult(data) {
-        var value = getResult();
+    function getDisplay() {
+        return Number($("#txtDisplay").val());
+    }
+
+    function appendDisplay(data) {
+        var value = getDisplay();
         if(value == "0") value = "";
-        value += "" + data;
-        setResult(value);
+
+        if(canAppend) {
+            value += "" + data;
+        } else {
+            value = data;
+            canAppend = true;
+        }
+
+        setDisplay(value);
+    }
+
+    function reset() {
+        setDisplay("0");
+        rpnStack.clear();
+        opStack.clear();
     }
 
     var operations = {
@@ -69,7 +123,7 @@ $(document).ready(function() {
     };
 
     function init() {
-        $("#txtResult").css("width", "100%");
+        $("#txtDisplay").css("width", "100%");
         $("button").css("width", "100%");  
     }
 
