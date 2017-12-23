@@ -66,5 +66,12 @@ $(document).ready(function() {
         equal: function() {
 
         }
+    };
+
+    function init() {
+        $("#txtResult").css("width", "100%");
+        $("button").css("width", "100%");  
     }
+
+    init();
 });
