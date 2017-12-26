@@ -19,5 +19,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "jasmine": "^2.8.0"
+  },
+  "devDependencies": {
+    "karma": "^2.0.0"
   }
 }
