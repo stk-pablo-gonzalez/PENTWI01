@@ -18,7 +18,8 @@
   "homepage": "https://github.com/stk-pablo-gonzalez/PENTWI01#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "jasmine": "^2.8.0"
+    "jasmine": "^2.8.0",
+    "jquery": "^3.2.1"
   },
   "devDependencies": {
     "jasmine-core": "^2.8.0",
