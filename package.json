@@ -22,6 +22,9 @@
     "jquery": "^3.2.1"
   },
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-copy": "^0.1.0",
+    "grunt-karma": "^2.0.0",
     "jasmine-core": "^2.8.0",
     "karma": "^2.0.0",
     "karma-firefox-launcher": "^1.1.0",
