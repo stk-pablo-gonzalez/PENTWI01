@@ -22,9 +22,12 @@ module.exports = function(grunt) {
     });
 
     //Load plugins
-    grunt.loadNpmTasks('grunt-copy');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-karma');
-
+    
+    //Tasks
+    grunt.registerTask('test', ['copy', 'karma']);
+    
     //Default tasks
 
 }
