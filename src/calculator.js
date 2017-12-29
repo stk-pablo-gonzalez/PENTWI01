@@ -26,6 +26,7 @@ $(document).ready(function() {
     var rpnStack = new Stack();
     var opStack = new Stack();
     var canAppend = true;
+    var isResult = false;
 
     $("button").click(function() {
         var key = $(this).attr("data-value");
@@ -40,27 +41,28 @@ $(document).ready(function() {
             reset();
         } else {
             canAppend = false;
-            
-            var operand = getDisplay();
-            rpnStack.push(operand);
-            
-            if(rpnStack.count == 1) {
-                opStack.push(key);
-            } else {
-                var operator = opStack.pop();
-                var result = NaN;
-
-                if(operator === "equal") {
-                    result = rpnStack.pop();
-                } else {
-                    var a = rpnStack.pop();
-                    var b = rpnStack.pop();
-                    result = operations[operator](a, b);
-                    rpnStack.push(result);
-                    opStack.push(key);
-                }
-                setDisplay(result);
+            if(!isResult) {
+                var operand = getDisplay();
+                rpnStack.push(operand);
             }
+
+            if(opStack.count > 0) {
+                console.log("rpnStack count: " + rpnStack.count);
+                var operator = opStack.pop();
+                var a = rpnStack.pop();
+                var b = rpnStack.pop();
+                var result = operations[operator](a, b);
+
+                rpnStack.push(result);
+                setDisplay(result);
+                isResult = true;
+            }
+
+            if(key !== "equal") {
+                opStack.push(key);
+                isResult = false;
+            }
+            
         }
     }
 
