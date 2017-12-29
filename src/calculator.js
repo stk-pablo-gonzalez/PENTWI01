@@ -34,6 +34,16 @@ $(document).ready(function() {
         handleKey(key);
     });
 
+    $(document).keypress(function(e) {
+        var pattern = /[0-9\+\-\*\/\.%c]/;
+        var key = String.fromCharCode(e.which);
+
+        if(pattern.test(key) || e.which === 13) {
+            if(e.which === 13) key = "equal";
+            handleKey(key)
+        }
+    });
+
     function handleKey(key) {
         if(isDigit(key)) {
             appendDisplay(key);
@@ -72,7 +82,7 @@ $(document).ready(function() {
     }
 
     function isClear(key) {
-        return key === "clear";
+        return key === "c";
     }
 
     function setDisplay(value) {
@@ -104,19 +114,19 @@ $(document).ready(function() {
     }
 
     var operations = {
-        sum: function(a, b) {
+        '+': function(a, b) {
             return a + b;
         },
-        substract: function(a, b) {
+        '-': function(a, b) {
             return a - b;
         },
-        multiply: function(a, b) {
+        '*': function(a, b) {
             return a * b;
         },
-        divide: function(a, b) {
+        '/': function(a, b) {
             return a / b;
         },
-        pct: function(a, b) {
+        '%': function(a, b) {
             return a * (b / 100);
         },
         equal: function() {
@@ -125,8 +135,15 @@ $(document).ready(function() {
     };
 
     function init() {
-        $("#txtDisplay").css("width", "100%");
-        $("button").css("width", "100%");  
+        $("#txtDisplay").hide()
+            .css("width", "100%")
+            .attr("enabled", "false")
+            .css("background", "yellow");
+        $("button").hide()
+            .css("width", "100%");  
+
+        $("#txtDisplay").show(150);
+        $("button").show(150);
     }
 
     init();
